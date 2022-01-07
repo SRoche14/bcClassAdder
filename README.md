@@ -5,6 +5,7 @@ to get an executable, go to the executables branch and download the right zip fo
 
 When done, please double check to make sure all your classes were uploaded correctly, and let me know if this does not work for you :)
 
-![Picture](images/IMG_2696.jpg?raw=true)
+The agora username & password information the application asks for is for the form below:
 
-![Picture](images/IMG_2696.jpg?raw=true)
+![Picture](images/agoraimage.png?raw=true)
+
