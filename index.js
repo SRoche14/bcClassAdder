@@ -27,9 +27,18 @@ async function scrapeProduct(url, data) {
     await page.waitForSelector('#fddAtpSelectorInputTopDiv > div > div > div > span > i')
     let carat = await page.$('#fddAtpSelectorInputTopDiv > div > div > div > span > i')
     await page.evaluate(el => el.click(), carat)
-    await page.waitForSelector('#ui-select-choices-row-0-1 > a')
-    let spring = await page.$('#ui-select-choices-row-0-1 > a')
-    await page.evaluate(el => el.click(), spring)
+
+    if(data2[4] == 'S') {
+        await page.waitForSelector('#ui-select-choices-row-0-1 > a')
+        let spring = await page.$('#ui-select-choices-row-0-1 > a')
+        await page.evaluate(el => el.click(), spring)
+    } else if (data2[4] == 'F') {
+        
+        await page.waitForSelector('#ui-select-choices-row-0-0 > a')
+        let fall = await page.$('#ui-select-choices-row-0-0 > a')
+        await page.evaluate(el => el.click(), fall)
+    }
+   
 
     await page.waitForSelector('#showRegistrations')
     let tabularView = await page.$('#showRegistrations')
@@ -299,8 +308,15 @@ rl.question("What is your Agora Username? ", function(username) {
     rl.question("What is your Agora password? ", function(password) {
         rl.question("What is your bc email? ", function(email) {
             rl.question("What is your bc email password? ", function(epassword) {
-                const path = [username, password, email, epassword]
-                scrapeProduct('https://eaen.bc.edu/student-registration/#/', path)
+                rl.question("Type 'S' for Spring courses, and 'F' for fall courses :) ", function(semester) {
+                    if((semester == 'F' || semester == "S") && email.includes("bc.edu")) {
+                        const path = [username, password, email, epassword, semester]
+                        scrapeProduct('https://eaen.bc.edu/student-registration/#/', path)
+                    } else {
+                        console.log('Please insert valid inputs. Restart program to try again!')
+                    }
+                })
+               
             })
         })
     });
